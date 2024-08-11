@@ -37,13 +37,14 @@ public class User implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int id;
-    private String firstName;
-    private String lastName;
+    private String firstname;
+    private String lastname;
     private String username;
     private String gender;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dob;
     private String phoneNumber;
+    private String nrcNumber;
     private String email;
     private String address;
     private String password;

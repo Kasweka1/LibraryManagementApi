@@ -27,18 +27,7 @@ public class ApplicationSecurityConfig {
     .csrf(csrf -> csrf
                         .disable())
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/api/ticketTypes").permitAll()
-                        .requestMatchers("/api/ticketPrice").permitAll()
-                        .requestMatchers("/api/tickets/**").permitAll()
-                        .requestMatchers("/wallet/users/search").permitAll()// come back to this one 
-                        .requestMatchers("/login", "/resources/**", "/assets/**", "/bootstrap/**", "/sass/**", "/plugins/**", "/img/**").permitAll()
-                        .requestMatchers("/register", "/resources/**", "/assets/**", "/bootstrap/**", "/sass/**", "/plugins/**", "/img/**").permitAll()
-                        .requestMatchers("/ticket/**").hasAnyAuthority("ADMIN", "ACCOUNTANT")
-                        .requestMatchers("/report/**").hasAnyAuthority("ADMIN", "ACCOUNTANT")
-                        .requestMatchers("/wallet/**").hasAnyAuthority("ADMIN", "ACCOUNTANT")
-                        .requestMatchers("/security/**").hasAuthority("ADMIN")
-                        .requestMatchers("/index").hasAnyAuthority("ADMIN", "ACCOUNTANT")// come back to this one
-                        .requestMatchers("/updatedData").permitAll()
+                        .requestMatchers("/api/v1/demo-controller").permitAll()
                         .requestMatchers("/api/v1/auth/**")
                         .permitAll()
                         .anyRequest()

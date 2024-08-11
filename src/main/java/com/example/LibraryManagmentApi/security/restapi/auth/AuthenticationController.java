@@ -28,19 +28,6 @@ public class AuthenticationController {
     @Autowired
     private UserService userService;
 
-    // @PostMapping("/register")
-    // public ResponseEntity<AuthenticationResponse> register(
-    //     @RequestBody RegisterRequest request
-    // ){
-    //     //
-    // }
-    
-    // @PostMapping("/authenticate")
-    // public ResponseEntity<AuthenticationResponse> register(
-    //     @RequestBody AuthenticationRequest request
-    // ){
-    //     //
-    // }
 
     @PostMapping("/authenticate")
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest request) {
@@ -55,36 +42,36 @@ public class AuthenticationController {
         }
     }
 
-    @PostMapping("/reset-password/{username}")
-    public ResponseEntity<?> resetPassword(@PathVariable String username, @RequestParam String token, @RequestParam String newPassword) {
-        User user = userService.findByUsername(username);
-        if (user != null) {
-            userService.resetPassword(user, token, newPassword);
-            String message = "Password reset successful.";
-            return ResponseEntity.ok()
-                    .body(Collections.singletonMap("message", message));
-        }
-        else {
-            String errorMessage = "User not found.";
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(Collections.singletonMap("error", errorMessage));
-        }
-    }
+    // @PostMapping("/reset-password/{username}")
+    // public ResponseEntity<?> resetPassword(@PathVariable String username, @RequestParam String token, @RequestParam String newPassword) {
+    //     User user = userService.findByUsername(username);
+    //     if (user != null) {
+    //         userService.resetPassword(user, token, newPassword);
+    //         String message = "Password reset successful.";
+    //         return ResponseEntity.ok()
+    //                 .body(Collections.singletonMap("message", message));
+    //     }
+    //     else {
+    //         String errorMessage = "User not found.";
+    //         return ResponseEntity.status(HttpStatus.NOT_FOUND)
+    //                 .body(Collections.singletonMap("error", errorMessage));
+    //     }
+    // }
     
-    @PostMapping("/forgot-password/{username}")
-    public ResponseEntity<?> forgotPassword(@PathVariable String username) {
-        User user = userService.findByUsername(username);
-        if (user != null) {
-            userService.generateResetPasswordToken(user);
-            String message = "Reset password token sent to your email.";
-            return ResponseEntity.ok()
-            .body(Collections.singletonMap("message", message));
-        } else {
-            String errorMessage = "User not found.";
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(Collections.singletonMap("error", errorMessage));
-        }
-    }
+    // @PostMapping("/forgot-password/{username}")
+    // public ResponseEntity<?> forgotPassword(@PathVariable String username) {
+    //     User user = userService.findByUsername(username);
+    //     if (user != null) {
+    //         userService.generateResetPasswordToken(user);
+    //         String message = "Reset password token sent to your email.";
+    //         return ResponseEntity.ok()
+    //         .body(Collections.singletonMap("message", message));
+    //     } else {
+    //         String errorMessage = "User not found.";
+    //         return ResponseEntity.status(HttpStatus.NOT_FOUND)
+    //                 .body(Collections.singletonMap("error", errorMessage));
+    //     }
+    // }
 
 
     @PostMapping("/refresh-token")

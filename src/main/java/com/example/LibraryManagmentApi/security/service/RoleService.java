@@ -7,8 +7,6 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.LibraryManagmentApi.security.repository.UserRepository;
-
 import com.example.LibraryManagmentApi.security.model.Role;
 import com.example.LibraryManagmentApi.security.model.User;
 import com.example.LibraryManagmentApi.security.repository.RoleRepository;
@@ -32,15 +30,15 @@ public class RoleService {
         return roleRepository.findById(id).orElse(null);
     }
 
-    //Delete Role
-    public void delete(int id) {
-        roleRepository.deleteById(id);
-    }
+    // //Delete Role
+    // public void delete(int id) {
+    //     roleRepository.deleteById(id);
+    // }
 
-    //Update Role
-    public void save(Role role) {
-        roleRepository.save(role);
-    }
+    // //Update Role
+    // public void save(Role role) {
+    //     roleRepository.save(role);
+    // }
 
     //Assign Role to User
     public void assignUserRole(Integer userId, Integer roleId) {

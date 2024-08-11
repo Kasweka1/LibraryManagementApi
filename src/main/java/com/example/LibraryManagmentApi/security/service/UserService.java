@@ -38,10 +38,9 @@ public class UserService {
     @Autowired
     private RoleRepository roleRepository;
 
-    @Autowired
-    private JavaMailSender javaMailSender;
     // @Autowired
     // private JavaMailSender javaMailSender;
+ 
 
     @Autowired
     private TokenRepository tokenRepository;
@@ -111,8 +110,8 @@ public class UserService {
                 .username("admin")
                 .password(encodedPassword) // password is "password"
                 .email("admin@toshokan.com")
-                .firstName("Admin")
-                .lastName("Admin")
+                .firstname("Admin")
+                .lastname("Admin")
                 .roles(Set.of(adminRole))
                 .build();
     
@@ -138,31 +137,31 @@ public class UserService {
     }
     
     ///////////////////RESET PASSWORD//////////////////////
-    public void generateResetPasswordToken(User user) {
-        user.generateResetPasswordToken();
-        userRepository.save(user);
-        sendResetPasswordEmail(user);
-    }
+    // public void generateResetPasswordToken(User user) {
+    //     user.generateResetPasswordToken();
+    //     userRepository.save(user);
+    //     sendResetPasswordEmail(user);
+    // }
 
-    public void resetPassword(User user, String token, String newPassword) {
-        String encodedPassword = encoder.encode(newPassword);
-        user.resetPassword(token, encodedPassword);
-        userRepository.save(user);
-    }
+    // public void resetPassword(User user, String token, String newPassword) {
+    //     String encodedPassword = encoder.encode(newPassword);
+    //     user.resetPassword(token, encodedPassword);
+    //     userRepository.save(user);
+    // }
 
 
-    private void sendResetPasswordEmail(User user) {
-        String recipientAddress = user.getEmail();
-        String subject = "Reset Password";
-        String body = "Dear " + user.getUsername() + ",\n\n"
-                + "Please use the following token to reset your password: " + user.getResetPasswordToken();
+    // private void sendResetPasswordEmail(User user) {
+    //     String recipientAddress = user.getEmail();
+    //     String subject = "Reset Password";
+    //     String body = "Dear " + user.getUsername() + ",\n\n"
+    //             + "Please use the following token to reset your password: " + user.getResetPasswordToken();
         
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(recipientAddress);
-        mailMessage.setSubject(subject);
-        mailMessage.setText(body);
+    //     SimpleMailMessage mailMessage = new SimpleMailMessage();
+    //     mailMessage.setTo(recipientAddress);
+    //     mailMessage.setSubject(subject);
+    //     mailMessage.setText(body);
         
-        javaMailSender.send(mailMessage);
-    }
+    //     javaMailSender.send(mailMessage);
+    // }
 
 }
