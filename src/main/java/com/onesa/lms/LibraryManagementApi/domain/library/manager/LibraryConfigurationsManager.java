@@ -11,7 +11,7 @@ import com.onesa.lms.LibraryManagementApi.domain.library.service.LibraryConfigur
 public class LibraryConfigurationsManager implements LibraryConfigurationsService {
 
     @Autowired
-    public LibraryConfigurationsRepository libraryConfigurationsRepository;
+    private LibraryConfigurationsRepository libraryConfigurationsRepository;
 
     @Override
     public LibraryConfigurations getLibraryConfigurations() {
@@ -39,7 +39,7 @@ public class LibraryConfigurationsManager implements LibraryConfigurationsServic
 
     @Override
     public void deleteLibraryConfigurations(Long id) {
-        throw new UnsupportedOperationException("LibraryConfigurations cannot be deleted.");
+        throw new UnsupportedOperationException("Library Configurations cannot be deleted.");
     }
 
 }
