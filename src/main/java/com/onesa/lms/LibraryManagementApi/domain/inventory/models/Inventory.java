@@ -20,7 +20,7 @@ public class Inventory {
     @Id
     private long id;
     private String name;
-    private String descrption;
+    private String description;
     private int quantity;
 
 }

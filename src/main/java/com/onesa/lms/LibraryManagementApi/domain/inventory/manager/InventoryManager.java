@@ -3,11 +3,13 @@ package com.onesa.lms.LibraryManagementApi.domain.inventory.manager;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.onesa.lms.LibraryManagementApi.domain.inventory.models.Inventory;
 import com.onesa.lms.LibraryManagementApi.domain.inventory.repository.InventoryRepository;
 import com.onesa.lms.LibraryManagementApi.domain.inventory.service.InventoryService;
 
+@Service
 public class InventoryManager implements InventoryService {
 
     @Autowired
@@ -25,20 +27,22 @@ public class InventoryManager implements InventoryService {
 
     @Override
     public Inventory getInventoryById(long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getInventoryById'");
+      return inventoryRepository.findInventoryById(id);
     }
 
     @Override
     public Inventory updateInventory(long id, Inventory inventory) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateInventory'");
+      Inventory existingInventory = inventoryRepository.findInventoryById(id);
+      existingInventory.setName(inventory.getName());
+      existingInventory.setDescription(inventory.getDescription());
+      existingInventory.setQuantity(inventory.getQuantity());
+      return inventoryRepository.save(existingInventory);
     }
 
     @Override
     public boolean deleteInventory(long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteInventory'");
+       inventoryRepository.deleteById(id);
+       return false;
     }
     
 }
