@@ -56,7 +56,7 @@ public class AuthorController {
             
         } catch (Exception e) {
             ApiResponse<List<Author>> response = new ApiResponse<>(1120, "Failed to retrieve authors", null);
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 

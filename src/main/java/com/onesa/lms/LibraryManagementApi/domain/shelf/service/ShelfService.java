@@ -12,12 +12,12 @@ public interface ShelfService {
     // List of Shelves
     List<Shelf> getAllShelves();
 
-    // Get shlef by id
+    // Get shelf by id
     Shelf getShelfById(long id);
 
     // Update shelf
 
-    Shelf updateShelf(Shelf shelf, long id);
+    Shelf updateShelf(long id, Shelf shelf);
 
     // Delete Shelf
 

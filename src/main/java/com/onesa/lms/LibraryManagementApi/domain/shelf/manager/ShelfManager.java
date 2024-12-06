@@ -40,17 +40,23 @@ public class ShelfManager implements ShelfService {
 
     // TODO: test this method thorougly
     @Override
-    public Shelf updateShelf(Shelf shelf, long id) {
+    public Shelf updateShelf(long id, Shelf shelf) {
 
-       Section section = sectionRepository.findById(shelf.getSection().getId())
-                          .orElseThrow(() -> new EntityNotFoundException("Section not found"));
-       Shelf existingShelf = shelfRepository.findShelfById(id);
+      Shelf existingShelf = shelfRepository.findShelfById(id);
+
+      if (existingShelf == null) {
+          throw new EntityNotFoundException("Shelf with id " + id + " not found.");
+      }
+  
+      Section section = sectionRepository.findSectionById(shelf.getSection().getId());
+
        existingShelf.setLocation(shelf.getLocation());
        existingShelf.setCondition(shelf.getCondition());
        existingShelf.setMaterial(shelf.getMaterial());
        existingShelf.setRows(shelf.getRows());
        existingShelf.setStatusAvailability(shelf.isStatusAvailability());
        existingShelf.setSection(section);
+
        return shelfRepository.save(existingShelf);
 
     }
