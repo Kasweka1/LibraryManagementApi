@@ -37,8 +37,6 @@ public class ShelfManager implements ShelfService {
       return shelfRepository.findShelfById(id);
     }
 
-
-    // TODO: test this method thorougly
     @Override
     public Shelf updateShelf(long id, Shelf shelf) {
 
@@ -51,9 +49,9 @@ public class ShelfManager implements ShelfService {
       Section section = sectionRepository.findSectionById(shelf.getSection().getId());
 
        existingShelf.setLocation(shelf.getLocation());
-       existingShelf.setCondition(shelf.getCondition());
+       existingShelf.setShelfCondition(shelf.getShelfCondition());
        existingShelf.setMaterial(shelf.getMaterial());
-       existingShelf.setRows(shelf.getRows());
+       existingShelf.setNumberOfRows(shelf.getNumberOfRows());
        existingShelf.setStatusAvailability(shelf.isStatusAvailability());
        existingShelf.setSection(section);
 

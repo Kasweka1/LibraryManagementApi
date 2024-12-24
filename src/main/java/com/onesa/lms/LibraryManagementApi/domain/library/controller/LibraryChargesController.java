@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.onesa.lms.LibraryManagementApi.domain.catalog.dtos.ApiResponse;
 import com.onesa.lms.LibraryManagementApi.domain.library.models.LibraryCharges;
-import com.onesa.lms.LibraryManagementApi.domain.library.models.LibraryConfigurations;
 import com.onesa.lms.LibraryManagementApi.domain.library.service.LibraryChargesService;
 
 @RestController

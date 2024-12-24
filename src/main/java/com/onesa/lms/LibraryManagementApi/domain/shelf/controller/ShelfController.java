@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.onesa.lms.LibraryManagementApi.domain.catalog.dtos.ApiResponse;
-import com.onesa.lms.LibraryManagementApi.domain.catalog.models.Author;
 import com.onesa.lms.LibraryManagementApi.domain.shelf.model.Shelf;
 import com.onesa.lms.LibraryManagementApi.domain.shelf.service.ShelfService;
 
@@ -73,43 +72,43 @@ public class ShelfController {
         }
     }
 
-    // @PutMapping("/{id}")
-    // public ResponseEntity<ApiResponse<Shelf>> updateAuthor(@PathVariable long id,
-    //         @RequestBody Shelf updatedShelf) {
-    //     try {
-    //         Shelf shelf = shelfService.updateShelf(id, updatedShelf);
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<Shelf>> updateShelf(@PathVariable long id,
+            @RequestBody Shelf updatedShelf) {
+        try {
+            Shelf shelf = shelfService.updateShelf(id, updatedShelf);
 
-    //         if (shelf == null) {
-    //             ApiResponse<Shelf> response = new ApiResponse<>(1105, "Shelf not found", null);
-    //             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-    //         }
+            if (shelf == null) {
+                ApiResponse<Shelf> response = new ApiResponse<>(1105, "Shelf not found", null);
+                return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+            }
 
-    //         ApiResponse<Shelf> response = new ApiResponse<>(1107, "Author updated successfully", shelf);
-    //         return new ResponseEntity<>(response, HttpStatus.OK);
+            ApiResponse<Shelf> response = new ApiResponse<>(1107, "Shelf updated successfully", shelf);
+            return new ResponseEntity<>(response, HttpStatus.OK);
 
-    //     } catch (Exception e) {
-    //         ApiResponse<Author> response = new ApiResponse<>(1120, "Failed to update Author", null);
-    //         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    // }
+        } catch (Exception e) {
+            ApiResponse<Shelf> response = new ApiResponse<>(1120, "Failed to update Shelf", null);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-    // @DeleteMapping("/{id}")
-    // public ResponseEntity<ApiResponse<Void>> deleteAuthor(@PathVariable long id) {
-    //     try {
-    //         boolean deleted = authorService.deleteAuthor(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteAuthor(@PathVariable long id) {
+        try {
+            boolean deleted = shelfService.deleteShelf(id);
 
-    //         if (!deleted) {
-    //             ApiResponse<Void> response = new ApiResponse<>(1001, "Author not found", null);
-    //             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-    //         }
+            if (!deleted) {
+                ApiResponse<Void> response = new ApiResponse<>(1001, "Shelf not found", null);
+                return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+            }
 
-    //         ApiResponse<Void> response = new ApiResponse<>(1000, "Author deleted successfully", null);
-    //         return new ResponseEntity<>(response, HttpStatus.OK);
+            ApiResponse<Void> response = new ApiResponse<>(1000, "Shelf deleted successfully", null);
+            return new ResponseEntity<>(response, HttpStatus.OK);
 
-    //     } catch (Exception e) {
-    //         ApiResponse<Void> response = new ApiResponse<>(1120, "Failed to delete Author", null);
-    //         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    // }
+        } catch (Exception e) {
+            ApiResponse<Void> response = new ApiResponse<>(1120, "Failed to delete Shelf", null);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     
 }

@@ -3,7 +3,6 @@ package com.onesa.lms.LibraryManagementApi.domain.shelf.model;
 import com.onesa.lms.LibraryManagementApi.domain.book.management.model.Book;
 import com.onesa.lms.LibraryManagementApi.domain.catalog.models.Section;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

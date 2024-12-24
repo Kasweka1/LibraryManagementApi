@@ -4,6 +4,7 @@ package com.onesa.lms.LibraryManagementApi.domain.shelf.model;
 
 import com.onesa.lms.LibraryManagementApi.domain.catalog.models.Section;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,10 +25,20 @@ public class Shelf {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private long id;
+
+    @Column(nullable= false)
     private String location;
-    private int rows;
+
+    @Column(nullable= false)
+    private int numberOfRows;
+
+    @Column(nullable= false)
     private String material;
-    private String condition;
+
+    @Column(nullable= false)
+    private String shelfCondition;
+
+    @Column(nullable= false)
     private boolean statusAvailability;
 
     @ManyToOne
