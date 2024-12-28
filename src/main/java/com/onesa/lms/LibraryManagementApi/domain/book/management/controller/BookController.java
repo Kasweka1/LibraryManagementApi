@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.onesa.lms.LibraryManagementApi.core.dtos.ApiResponse;
 import com.onesa.lms.LibraryManagementApi.domain.book.management.model.Book;
 import com.onesa.lms.LibraryManagementApi.domain.book.management.service.BookService;
-import com.onesa.lms.LibraryManagementApi.domain.catalog.dtos.ApiResponse;
 
 @RestController
 @RequestMapping("/books")

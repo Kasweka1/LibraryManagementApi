@@ -1,4 +1,4 @@
-package com.onesa.lms.LibraryManagementApi.domain.catalog.dtos;
+package com.onesa.lms.LibraryManagementApi.core.dtos;
 
 public class ApiResponseManager {
      // Success response for creating an entity

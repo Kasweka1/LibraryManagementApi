@@ -30,6 +30,24 @@ public class ShelfBookManager implements ShelfBookService {
     @Override
     public ShelfBook createShelfBook(ShelfBook shelfBook) {
 
+       
+        List<ShelfBook> existingShelfBooks = shelfBookRepository.findByBookId(shelfBook.getBook().getId());
+        if (!existingShelfBooks.isEmpty()) {
+            throw new IllegalStateException("Book with id " + shelfBook.getBook().getId() + " is already on another shelf.");
+        }
+    
+        Book book = bookRepository.findBookById(shelfBook.getBook().getId());
+        if (book == null) {
+            throw new EntityNotFoundException("Book with id " + shelfBook.getBook().getId() + " not found.");
+        }
+    
+        Shelf shelf = shelfRepository.findShelfById(shelfBook.getShelf().getId());
+        if (shelf == null) {
+            throw new EntityNotFoundException("Shelf with id " + shelfBook.getShelf().getId() + " not found.");
+        }
+    
+        shelfBook.setBook(book);
+        shelfBook.setShelf(shelf);
         return shelfBookRepository.save(shelfBook);
     }
 

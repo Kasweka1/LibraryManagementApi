@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.onesa.lms.LibraryManagementApi.domain.catalog.dtos.ApiResponse;
+import com.onesa.lms.LibraryManagementApi.core.dtos.ApiResponse;
 import com.onesa.lms.LibraryManagementApi.domain.shelf.model.Shelf;
 import com.onesa.lms.LibraryManagementApi.domain.shelf.service.ShelfService;
 

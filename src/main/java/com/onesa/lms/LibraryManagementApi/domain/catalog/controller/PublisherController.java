@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.onesa.lms.LibraryManagementApi.domain.catalog.dtos.ApiResponse;
+import com.onesa.lms.LibraryManagementApi.core.dtos.ApiResponse;
 import com.onesa.lms.LibraryManagementApi.domain.catalog.models.Publisher;
 import com.onesa.lms.LibraryManagementApi.domain.catalog.service.PublisherService;
 
