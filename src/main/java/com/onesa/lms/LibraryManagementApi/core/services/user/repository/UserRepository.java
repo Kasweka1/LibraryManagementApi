@@ -9,6 +9,8 @@ import com.onesa.lms.LibraryManagementApi.core.services.user.models.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 
+    User findByUsername(String Username);
+
     User findUserByEmailIgnoreCase(String email);
 
 

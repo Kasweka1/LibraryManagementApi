@@ -46,4 +46,10 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+
+    @Override
+    public String toString(){
+        return "User [id=" + id + ", username=" + username + ". email" + email  +", password=" + password + "]";
+    }
+
 }
