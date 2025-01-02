@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.onesa.lms.LibraryManagementApi.core.services.user.constants.UserStatus;
 import com.onesa.lms.LibraryManagementApi.core.services.user.models.User;
 
 public class UserPrinciple implements UserDetails{
@@ -38,8 +40,8 @@ public class UserPrinciple implements UserDetails{
     }
     
     // TODO: add logic for active or inactive authorties
-    // @Override
-    // public boolean isEnabled() {
-    //     return user.getUserStatus() == UserStatus.ACTIVE; 
-    // }
+    @Override
+    public boolean isEnabled() {
+        return user.getUserStatus() == UserStatus.ACTIVE; 
+    }
 }

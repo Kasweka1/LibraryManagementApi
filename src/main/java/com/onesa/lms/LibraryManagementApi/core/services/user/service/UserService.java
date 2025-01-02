@@ -2,6 +2,7 @@ package com.onesa.lms.LibraryManagementApi.core.services.user.service;
 
 import java.util.List;
 
+import com.onesa.lms.LibraryManagementApi.core.services.user.constants.UserStatus;
 import com.onesa.lms.LibraryManagementApi.core.services.user.models.User;
 
 public interface UserService {
@@ -9,24 +10,21 @@ public interface UserService {
     //  Registers a new member by saving them as role member
     public User  registerMember(User user);
 
+
+    //  Verifies user when login in 
     public String verify (User user);
 
     // Created a new user of 'librarian' or 'admin' by saving them as role librarian
     User createUser(User user);
 
- 
-    // User getUserByEmail(String email);
-
-   
+    //  Updates get by id
     User getUserById(long id);
-
-    // User getUserByPhoneNumber(String phoneNumber);
 
     List<User> getAllUsers();
 
+    public User updateUser(User user, Long id);
 
-    // Boolean existsByEmail(String email);
+    public User changeUserStatus(Long userId, UserStatus newStatus);
 
-    // boolean isEmailOrPhoneNumberTaken(String email, String phoneNumber);
 
 }
