@@ -6,20 +6,27 @@ import com.onesa.lms.LibraryManagementApi.core.services.user.models.User;
 
 public interface UserService {
 
-    User saveUser(User user);
+    //  Registers a new member by saving them as role member
+    public User  registerMember(User user);
+
+    public String verify (User user);
+
+    // Created a new user of 'librarian' or 'admin' by saving them as role librarian
+    User createUser(User user);
 
  
-    User getUserByEmail(String email);
+    // User getUserByEmail(String email);
 
    
     User getUserById(long id);
 
-    User getUserByPhoneNumber(String phoneNumber);
+    // User getUserByPhoneNumber(String phoneNumber);
 
     List<User> getAllUsers();
 
-    Boolean existsByEmail(String email);
 
-    Boolean existsByPhoneNumber(String phoneNumber);
+    // Boolean existsByEmail(String email);
+
+    // boolean isEmailOrPhoneNumberTaken(String email, String phoneNumber);
 
 }

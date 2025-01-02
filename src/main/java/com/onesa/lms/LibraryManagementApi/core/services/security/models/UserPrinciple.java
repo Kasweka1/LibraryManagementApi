@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import com.onesa.lms.LibraryManagementApi.core.services.user.models.User;
 
 public class UserPrinciple implements UserDetails{
@@ -22,7 +21,8 @@ public class UserPrinciple implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("USER"));
+        String userRole  = "ROLE_" + user.getRole().name();
+        return Collections.singleton(new SimpleGrantedAuthority(userRole));
     }
 
     @Override
@@ -37,4 +37,9 @@ public class UserPrinciple implements UserDetails{
         return user.getUsername();
     }
     
+    // TODO: add logic for active or inactive authorties
+    // @Override
+    // public boolean isEnabled() {
+    //     return user.getUserStatus() == UserStatus.ACTIVE; 
+    // }
 }
