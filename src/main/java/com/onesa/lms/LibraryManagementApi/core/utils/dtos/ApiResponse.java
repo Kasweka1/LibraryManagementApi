@@ -1,4 +1,4 @@
-package com.onesa.lms.LibraryManagementApi.core.dtos;
+package com.onesa.lms.LibraryManagementApi.core.utils.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

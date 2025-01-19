@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import com.onesa.lms.LibraryManagementApi.core.dtos.ApiResponse;
+import com.onesa.lms.LibraryManagementApi.core.utils.dtos.ApiResponse;
 
 @ControllerAdvice
 public class GlobalExceptionsHandler {
