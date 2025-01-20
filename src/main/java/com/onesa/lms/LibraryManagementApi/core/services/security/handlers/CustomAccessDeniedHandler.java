@@ -7,7 +7,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.onesa.lms.LibraryManagementApi.core.dtos.ApiResponse;
+import com.onesa.lms.LibraryManagementApi.core.utils.dtos.ApiResponse;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

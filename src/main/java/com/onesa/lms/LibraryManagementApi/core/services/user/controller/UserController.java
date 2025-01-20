@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.onesa.lms.LibraryManagementApi.core.dtos.ApiResponse;
 import com.onesa.lms.LibraryManagementApi.core.services.user.constants.UserStatus;
 import com.onesa.lms.LibraryManagementApi.core.services.user.models.User;
 import com.onesa.lms.LibraryManagementApi.core.services.user.service.UserService;
+import com.onesa.lms.LibraryManagementApi.core.utils.dtos.ApiResponse;
 
 @RestController
 public class UserController {

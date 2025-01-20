@@ -17,6 +17,7 @@ import com.onesa.lms.LibraryManagementApi.core.services.user.manager.utilities.U
 import com.onesa.lms.LibraryManagementApi.core.services.user.models.User;
 import com.onesa.lms.LibraryManagementApi.core.services.user.repository.UserRepository;
 import com.onesa.lms.LibraryManagementApi.core.services.user.service.UserService;
+import com.onesa.lms.LibraryManagementApi.core.utils.email.service.MailService;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -36,12 +37,17 @@ public class UserManager implements UserService {
     @Autowired
     private UserValidation userValidation;
 
+    @Autowired
+    private MailService mailService;
+
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
 
     @Override
     public User registerMember(User user) {
 
-        return saveUserWithLibraryId(user, RoleType.MEMBER);
+        User registeredMember =  saveUserWithLibraryId(user, RoleType.MEMBER);
+        mailService.updateUserOnSuccessfulAccountCreationAndActivation(registeredMember);   
+        return registeredMember;
     }
 
     @Override
@@ -50,10 +56,12 @@ public class UserManager implements UserService {
         if (user.getRole() != RoleType.ADMIN && user.getRole() != RoleType.LIBRARIAN) {
             throw new IllegalArgumentException("Only ADMIN or LIBRARIAN roles are allowed for this operation");
         }
-        return saveUserWithLibraryId(user, user.getRole());
+        User createdUser = saveUserWithLibraryId(user, user.getRole());
+        mailService.alertLibrarianOrAdminOnAccountCreation(createdUser);
+        return createdUser;
     }
 
-    // method to save user with library ID for Regitration and Create User methofd
+    // method to save user with library ID for Regitration and Create User method
     private User saveUserWithLibraryId(User user, RoleType roleType) {
         // Validate user information
         userValidation.validateUserInfo(user.getEmail(), user.getPhoneNumber(), user.getUsername());
@@ -126,7 +134,7 @@ public class UserManager implements UserService {
         if (user == null) {
             throw new IllegalArgumentException("User not found");
         }
-        
+
         if (newStatus == null) {
             throw new IllegalArgumentException("Invalid user status");
         }
