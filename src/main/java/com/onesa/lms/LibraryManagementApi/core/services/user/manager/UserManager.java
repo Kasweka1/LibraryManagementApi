@@ -123,6 +123,7 @@ public class UserManager implements UserService {
         existingUser.setLastName(user.getLastName());
         existingUser.setPhoneNumber(user.getPhoneNumber());
         existingUser.setResidentialAddress(user.getResidentialAddress());
+        existingUser.setProfilePictureUrl(user.getProfilePictureUrl());
 
         return userRepository.save(existingUser);
     }

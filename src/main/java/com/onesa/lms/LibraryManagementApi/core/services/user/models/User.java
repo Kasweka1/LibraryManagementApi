@@ -54,6 +54,7 @@ public class User {
 
 
     private String libraryIdNumber;
+    private String profilePictureUrl;
 
     @Builder.Default
     @Enumerated(EnumType.STRING)
