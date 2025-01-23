@@ -22,6 +22,10 @@ public class LibraryConfigurationsManager implements LibraryConfigurationsServic
     public LibraryConfigurations updateLibraryConfigurations(LibraryConfigurations libraryConfigurations) {
         LibraryConfigurations existingConfig = libraryConfigurationsRepository.findFirstByOrderById();
 
+        if (libraryConfigurations.getDefaultReturnPeriod() <= 0) {
+            throw new IllegalArgumentException("Return period must be greater than 0");
+        }
+
         if (existingConfig != null) {
             existingConfig.setLibraryName(libraryConfigurations.getLibraryName());
             existingConfig.setUsername(libraryConfigurations.getUsername());
@@ -30,6 +34,7 @@ public class LibraryConfigurationsManager implements LibraryConfigurationsServic
             existingConfig.setWebsite(libraryConfigurations.getWebsite());
             existingConfig.setLocation(libraryConfigurations.getLocation());
             existingConfig.setAddress(libraryConfigurations.getAddress());
+            existingConfig.setDefaultReturnPeriod(libraryConfigurations.getDefaultReturnPeriod());
 
             return libraryConfigurationsRepository.save(existingConfig);
         } else {

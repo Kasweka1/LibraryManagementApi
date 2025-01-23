@@ -26,5 +26,7 @@ public interface UserService {
 
     public User changeUserStatus(Long userId, UserStatus newStatus);
 
+    public User getLoggedInUser();
+
 
 }

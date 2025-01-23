@@ -75,6 +75,7 @@ public class BookManager implements BookService {
         existingBook.setPublicationDate(book.getPublicationDate());
         existingBook.setPublisher(book.getPublisher());
         existingBook.setSection(book.getSection());
+        existingBook.setNumberOfPages(book.getNumberOfPages());
         return bookRespository.save(existingBook);
     }
 

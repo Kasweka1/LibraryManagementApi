@@ -85,7 +85,7 @@ public class UserController {
             }
         } catch (Exception e) {
             System.out.println(e);
-            ApiResponse<Map<String, String>> response = new ApiResponse<>(1202, "Failed to login", null);
+            ApiResponse<Map<String, String>> response = new ApiResponse<>(1202, "Failed to login:" + e.getMessage(),null);
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

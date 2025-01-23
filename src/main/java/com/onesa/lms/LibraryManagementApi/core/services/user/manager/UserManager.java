@@ -20,6 +20,7 @@ import com.onesa.lms.LibraryManagementApi.core.services.user.service.UserService
 import com.onesa.lms.LibraryManagementApi.core.utils.email.service.MailService;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.authentication.AuthenticationManager;
 
 @Service
@@ -45,8 +46,8 @@ public class UserManager implements UserService {
     @Override
     public User registerMember(User user) {
 
-        User registeredMember =  saveUserWithLibraryId(user, RoleType.MEMBER);
-        mailService.updateUserOnSuccessfulAccountCreationAndActivation(registeredMember);   
+        User registeredMember = saveUserWithLibraryId(user, RoleType.MEMBER);
+        mailService.updateUserOnSuccessfulAccountCreationAndActivation(registeredMember);
         return registeredMember;
     }
 
@@ -142,6 +143,16 @@ public class UserManager implements UserService {
         user.setUserStatus(newStatus);
 
         return userRepository.save(user);
+    }
+
+    public User getLoggedInUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return null;
+        }
+
+        String username = authentication.getName();
+        return userRepository.findByUsername(username);
     }
 
 }

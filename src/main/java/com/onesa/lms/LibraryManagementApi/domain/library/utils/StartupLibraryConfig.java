@@ -24,6 +24,7 @@ public class StartupLibraryConfig {
                 .website("www.toshokan.com")
                 .location("Toshokan City")
                 .address("123 toshokan St.")
+                .defaultReturnPeriod(7)
                 .build();
             
             libraryConfigurationsRepository.save(defaultConfig);

@@ -31,6 +31,7 @@ public class Book {
 
     private String editionNumber;
     private int numberOfPages;  
+    private int numberOfCopies;  
     private String price;
     private String coverImageUrl;
     private String isbn;
