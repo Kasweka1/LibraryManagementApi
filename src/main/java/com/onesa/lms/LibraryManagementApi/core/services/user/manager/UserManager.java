@@ -155,4 +155,13 @@ public class UserManager implements UserService {
         return userRepository.findByUsername(username);
     }
 
+    @Override
+    public User getUserByLibraryId(String libraryIdNumber) {
+        User user = userRepository.findByLibraryIdNumber(libraryIdNumber);
+        if (user == null) {
+            throw new IllegalArgumentException("User not found");
+        }
+        return user;
+    }
+
 }

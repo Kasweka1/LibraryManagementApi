@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.onesa.lms.LibraryManagementApi.core.services.user.constants.UserStatus;
+import com.onesa.lms.LibraryManagementApi.core.services.user.controller.utils.LibraryIdRequest;
 import com.onesa.lms.LibraryManagementApi.core.services.user.models.User;
 import com.onesa.lms.LibraryManagementApi.core.services.user.service.UserService;
 import com.onesa.lms.LibraryManagementApi.core.utils.dtos.ApiResponse;
@@ -119,6 +120,25 @@ public class UserController {
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping("/user/library-number")
+    public ResponseEntity<ApiResponse<User>> getUserByLibraryNumber(@RequestBody LibraryIdRequest libraryIdRequest) {
+
+        try {
+
+            User responseUser = userService.getUserByLibraryId(libraryIdRequest.getLibraryIdNumber());
+            ApiResponse<User> response = new ApiResponse<>(1200, "User retrieved Succesfully", responseUser);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+
+        } 
+        catch (Exception e) {
+            System.out.println(e);
+            ApiResponse<User> response = new ApiResponse<>(1202, "Failed to Retrieve User: " + e.getMessage(), null);
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+    }
+   
 
     @PutMapping("/user/{id}")
     public ResponseEntity<ApiResponse<User>> updateUser(@RequestBody User updatedUser, @PathVariable long id) {

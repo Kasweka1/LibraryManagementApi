@@ -85,4 +85,23 @@ public class BookManager implements BookService {
         return false;
     }
 
+    @Override
+    public Book getBookByTitle(String title) {
+       Book book = bookRespository.findByTitle(title);
+       if(book == null){
+           throw new IllegalArgumentException("Book not found");
+       }
+       return book;   
+    
+    }
+
+    @Override
+    public Book getBookByBookId(String bookId) {
+      Book book = bookRespository.findByBookId(bookId);
+        if(book == null){
+            throw new IllegalArgumentException("Book not found");
+        }
+        return book;
+    }
+
 }

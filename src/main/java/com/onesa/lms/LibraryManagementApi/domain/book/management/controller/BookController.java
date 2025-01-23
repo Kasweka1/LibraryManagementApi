@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.onesa.lms.LibraryManagementApi.core.utils.dtos.ApiResponse;
+import com.onesa.lms.LibraryManagementApi.domain.book.management.controller.utils.BookIdRequest;
+import com.onesa.lms.LibraryManagementApi.domain.book.management.controller.utils.BookTitleRequest;
 import com.onesa.lms.LibraryManagementApi.domain.book.management.model.Book;
 import com.onesa.lms.LibraryManagementApi.domain.book.management.service.BookService;
 
@@ -109,6 +111,32 @@ public class BookController {
 
         } catch (Exception e) {
             ApiResponse<Void> response = new ApiResponse<>(1120, "Failed to delete Book", null);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @PostMapping("/book-title")
+    public ResponseEntity<ApiResponse<Book>> getBookByTitle(@RequestBody BookTitleRequest bookTitleRequest) {
+        try {
+            Book retrievedBook = bookService.getBookByTitle(bookTitleRequest.getTitle());
+            ApiResponse<Book> response = new ApiResponse<>(1200, "Book retrieved successfully", retrievedBook);
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
+        } catch (Exception e) {
+            System.out.println(e);
+            ApiResponse<Book> response = new ApiResponse<>(1500, "Failed to retrieve book " + e.getMessage(), null);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PostMapping("/book-id")
+    public ResponseEntity<ApiResponse<Book>> getBookById(@RequestBody BookIdRequest bookIdRequest) {
+        try {
+            Book retrievedBook = bookService.getBookByBookId(bookIdRequest.getBookId());
+            ApiResponse<Book> response = new ApiResponse<>(1200, "Book retrieved successfully", retrievedBook);
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
+        } catch (Exception e) {
+            System.out.println(e);
+            ApiResponse<Book> response = new ApiResponse<>(1500, "Failed to retrieve book " + e.getMessage(), null);
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

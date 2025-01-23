@@ -17,7 +17,7 @@ public interface BookCirculationService {
      * @throws IllegalArgumentException if the book is not available or member is not eligible.
      */
 
-    BookCirculation lendBook(Long bookId, Long memberId);
+    BookCirculation lendBook(String bookId, String memberIdentifier);
 
     /**
      * Return a book to the library.
@@ -87,7 +87,7 @@ public interface BookCirculationService {
      * @return true if the book is available, false otherwise
      */
 
-    boolean isBookAvailable(Long bookId);
+    boolean isBookAvailable(String bookId);
 
     /**
      * Get the number of days a book can be borrowed for.
@@ -95,7 +95,6 @@ public interface BookCirculationService {
      * @return The number of days the book can be borrowed for
      */
 
-    int getReturnDays(Long bookId);
 
 
     BookCirculation getBookCirculationByLibraryId(String libraryId);

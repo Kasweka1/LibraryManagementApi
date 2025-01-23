@@ -16,22 +16,22 @@ import com.onesa.lms.LibraryManagementApi.domain.book.circulation.service.BookCi
 @RestController
 @RequestMapping("/book-circulation")
 public class BookCirculationController {
-    
-    @Autowired
-    private BookCirculationService bookCirculationService;
 
-    @PostMapping("/lend-book")
-    public ResponseEntity<ApiResponse<BookCirculation>> lendBook(@RequestBody LendBookRequest lendBookRequest) {
-      try {
-        BookCirculation bookCirculation = bookCirculationService.lendBook(
-            lendBookRequest.getBookId(),
-            lendBookRequest.getMemberId()
-            );
-             ApiResponse<BookCirculation> response = new ApiResponse<>(1200, "Book lent successfully", bookCirculation);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-      } catch (Exception e) {
-        ApiResponse<BookCirculation> response = new ApiResponse<>(1202, "Failed to lend book: " + e.getMessage(), null);
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-      }
+  @Autowired
+  private BookCirculationService bookCirculationService;
+
+  @PostMapping("/lend-book")
+  public ResponseEntity<ApiResponse<BookCirculation>> lendBook(@RequestBody LendBookRequest lendBookRequest) {
+    try {
+      BookCirculation bookCirculation = bookCirculationService.lendBook(
+         lendBookRequest.getBookId(),
+          lendBookRequest.getLibraryUserIdentider()
+          );
+      ApiResponse<BookCirculation> response = new ApiResponse<>(1200, "Book lent successfully", bookCirculation);
+      return new ResponseEntity<>(response, HttpStatus.OK);
+    } catch (Exception e) {
+      ApiResponse<BookCirculation> response = new ApiResponse<>(1202, "Failed to lend book: " + e.getMessage(), null);
+      return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
 }

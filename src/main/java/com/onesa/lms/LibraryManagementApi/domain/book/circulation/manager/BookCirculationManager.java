@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.onesa.lms.LibraryManagementApi.core.services.user.repository.UserRepository;
 import com.onesa.lms.LibraryManagementApi.core.services.user.service.UserService;
+import com.onesa.lms.LibraryManagementApi.domain.book.circulation.manager.utils.MemberIdentifierResolver;
 import com.onesa.lms.LibraryManagementApi.domain.book.circulation.model.BookCirculation;
 import com.onesa.lms.LibraryManagementApi.domain.book.circulation.model.util.LendStatus;
 import com.onesa.lms.LibraryManagementApi.domain.book.circulation.repository.BookCirculationRepository;
@@ -41,9 +42,14 @@ public class BookCirculationManager implements BookCirculationService {
     private LibraryConfigurationsRepository libraryConfigurationsRepository;
 
     @Override
-    public BookCirculation lendBook(Long bookId, Long memberId) {
+    public BookCirculation lendBook(String bookId, String memberIdentifier) {
 
-        Book book = bookRespository.findBookById(bookId);
+        MemberIdentifierResolver resolver = new MemberIdentifierResolver(userRepository);
+
+        // Resolve the member (either by library ID or username)
+        User member = resolver.resolveMember(memberIdentifier);
+
+        Book book = bookRespository.findByBookId(bookId);
         if (book == null) {
             throw new IllegalArgumentException("Book not found");
         }
@@ -52,7 +58,6 @@ public class BookCirculationManager implements BookCirculationService {
             throw new IllegalArgumentException("Book is not available");
         }
 
-        User member = userRepository.findUserById(memberId);
         if (member == null) {
             throw new IllegalArgumentException("Member not found");
         }
@@ -67,12 +72,12 @@ public class BookCirculationManager implements BookCirculationService {
         bookRespository.save(book);
 
         // Get a return date
-        int returnDays = getReturnDays(bookId);
+        int returnDays = getReturnDays();
         LocalDate dueDate = LocalDate.now().plusDays(returnDays);
 
         BookCirculation bookLend = BookCirculation.builder()
-                .book(bookRespository.findBookById(bookId))
-                .borrower(userRepository.findUserById(memberId))
+                .book(bookRespository.findByBookId(bookId))
+                .borrower(member)
                 .librarianLender(librarian)
                 .lendDate(LocalDate.now())
                 .dueDate(dueDate)
@@ -150,8 +155,8 @@ public class BookCirculationManager implements BookCirculationService {
     }
 
     @Override
-    public boolean isBookAvailable(Long bookId) {
-        Book book = bookRespository.findBookById(bookId);
+    public boolean isBookAvailable(String bookId) {
+        Book book = bookRespository.findByBookId(bookId);
         if (book == null) {
             throw new IllegalArgumentException("Book not found");
         }
@@ -159,20 +164,19 @@ public class BookCirculationManager implements BookCirculationService {
         return book.getNumberOfCopies() > 0;
     }
 
-    @Override
-    public int getReturnDays(Long bookId) {
-        LibraryConfigurations config = libraryConfigurationsRepository.findFirstByOrderById();
-        return config != null ? config.getDefaultReturnPeriod() : 7; // Default to 7 days if no configuration
-    }
-
+    
     @Override
     public BookCirculation getBookCirculationByLibraryId(String libraryId) {
-       return bookCirculationRepository.findBookCirculationByBorrower(userRepository.findByLibraryIdNumber(libraryId));
+        return bookCirculationRepository.findBookCirculationByBorrower(userRepository.findByLibraryIdNumber(libraryId));
     }
-
+    
     @Override
     public BookCirculation getBookCirculationByLendStatus(LendStatus status) {
         return bookCirculationRepository.findBookCirculationByStatus(status);
     }
-
+    
+    public int getReturnDays() {
+        LibraryConfigurations config = libraryConfigurationsRepository.findFirstByOrderById();
+        return config != null ? config.getDefaultReturnPeriod() : 7; // Default to 7 days if no configuration
+    }
 }

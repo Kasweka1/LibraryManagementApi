@@ -15,5 +15,9 @@ public interface BookService {
 
     boolean deleteBook(long id);
 
+    Book getBookByTitle(String title);
+
+    Book getBookByBookId(String bookId);
+
   
 }

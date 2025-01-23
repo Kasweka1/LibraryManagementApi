@@ -28,5 +28,7 @@ public interface UserService {
 
     public User getLoggedInUser();
 
+    public User getUserByLibraryId(String libraryIdNumber);
+
 
 }
