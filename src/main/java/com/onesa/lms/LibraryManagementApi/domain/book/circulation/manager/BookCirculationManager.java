@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.onesa.lms.LibraryManagementApi.core.services.user.repository.UserRepository;
 import com.onesa.lms.LibraryManagementApi.core.services.user.service.UserService;
+import com.onesa.lms.LibraryManagementApi.domain.book.circulation.manager.utils.LendValidation;
 import com.onesa.lms.LibraryManagementApi.domain.book.circulation.manager.utils.MemberIdentifierResolver;
 import com.onesa.lms.LibraryManagementApi.domain.book.circulation.model.BookCirculation;
 import com.onesa.lms.LibraryManagementApi.domain.book.circulation.model.util.LendStatus;
@@ -45,9 +46,14 @@ public class BookCirculationManager implements BookCirculationService {
     public BookCirculation lendBook(String bookId, String memberIdentifier) {
 
         MemberIdentifierResolver resolver = new MemberIdentifierResolver(userRepository);
+        LendValidation lendValidation = new LendValidation(bookCirculationRepository, libraryConfigurationsRepository);
 
         // Resolve the member (either by library ID or username)
         User member = resolver.resolveMember(memberIdentifier);
+
+        // Validate if the user can borrow
+        lendValidation.validateBorrowEligibility(member);
+
 
         Book book = bookRespository.findByBookId(bookId);
         if (book == null) {
@@ -107,7 +113,6 @@ public class BookCirculationManager implements BookCirculationService {
         lentBook.setReturnDate(LocalDate.now());
         lentBook.setLibrarianReturner(librarian);
         lentBook.setStatus(LendStatus.RETURNED);
-        
 
         // Increase book copies
         Book book = lentBook.getBook();
@@ -164,19 +169,20 @@ public class BookCirculationManager implements BookCirculationService {
         return book.getNumberOfCopies() > 0;
     }
 
-    
     @Override
     public BookCirculation getBookCirculationByLibraryId(String libraryId) {
         return bookCirculationRepository.findBookCirculationByBorrower(userRepository.findByLibraryIdNumber(libraryId));
     }
-    
+
     @Override
     public BookCirculation getBookCirculationByLendStatus(LendStatus status) {
         return bookCirculationRepository.findBookCirculationByStatus(status);
     }
-    
-    public int getReturnDays() {
+
+    private int getReturnDays() {
         LibraryConfigurations config = libraryConfigurationsRepository.findFirstByOrderById();
         return config != null ? config.getDefaultReturnPeriod() : 7; // Default to 7 days if no configuration
     }
+
+
 }

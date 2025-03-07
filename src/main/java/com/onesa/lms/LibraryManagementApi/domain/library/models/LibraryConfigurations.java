@@ -29,7 +29,10 @@ public class LibraryConfigurations {
     private String location;
     private String address;
 
-     // Default return period in days
     @Column(nullable = false)
     private int defaultReturnPeriod;
+
+    @Column(nullable = false)
+    private int maxBorrowLimit;
+
 }

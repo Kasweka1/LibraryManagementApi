@@ -48,4 +48,6 @@ public class MemberIdentifierResolver {
         String libraryIdPattern = "^(AD|LI|ME)\\d{4}\\d{5}$"; // Prefix + Year + 5 digits
         return Pattern.matches(libraryIdPattern, identifier);
     }
+
+   
 }

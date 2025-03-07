@@ -35,4 +35,6 @@ public interface BookCirculationRepository extends JpaRepository<BookCirculation
     List<BookCirculation> findByBookClassification(Classification classification);
     List<BookCirculation> findByBookPublisher(Publisher publisher);
     List<BookCirculation> findByBookSection(Section section);
+
+    int countByBorrowerAndReturnDateIsNull(User borrower);
 }

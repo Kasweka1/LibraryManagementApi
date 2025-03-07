@@ -25,6 +25,7 @@ public class StartupLibraryConfig {
                 .location("Toshokan City")
                 .address("123 toshokan St.")
                 .defaultReturnPeriod(7)
+                .maxBorrowLimit(1)
                 .build();
             
             libraryConfigurationsRepository.save(defaultConfig);

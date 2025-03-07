@@ -35,6 +35,7 @@ public class LibraryConfigurationsManager implements LibraryConfigurationsServic
             existingConfig.setLocation(libraryConfigurations.getLocation());
             existingConfig.setAddress(libraryConfigurations.getAddress());
             existingConfig.setDefaultReturnPeriod(libraryConfigurations.getDefaultReturnPeriod());
+            existingConfig.setMaxBorrowLimit(libraryConfigurations.getMaxBorrowLimit());
 
             return libraryConfigurationsRepository.save(existingConfig);
         } else {
